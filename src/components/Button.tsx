@@ -12,7 +12,7 @@ import { $styles } from "../theme"
 import { Text, TextProps } from "./Text"
 import { useAppTheme } from "@/utils/useAppTheme"
 
-type Presets = "default" | "filled" | "reversed" | "text"
+type Presets = "default" | "filled" | "reversed" | "text" | "cta"
 
 export interface ButtonAccessoryProps {
   style: StyleProp<any>
@@ -205,6 +205,25 @@ const $leftAccessoryStyle: ThemedStyle<ViewStyle> = ({ spacing }) => ({
   zIndex: 1,
 })
 
+const $ctaViewStyle: ThemedStyle<ViewStyle> = ({ colors, spacing }) => ({
+  borderWidth: 4,
+  borderColor: colors.palette.accent100,
+  borderRadius: 18,
+  backgroundColor: colors.palette.neutral800,
+  width: 320,
+  height: 68,
+  marginHorizontal: spacing.md,
+  alignItems: "center",
+  justifyContent: "center",
+  padding: spacing.xs,
+  flexDirection: "row",
+})
+
+const $ctaTextStyle: ThemedStyle<TextStyle> = ({ colors }) => ({
+  color: colors.palette.neutral200,
+  fontSize: 16,
+})
+
 const $viewPresets: Record<Presets, ThemedStyleArray<ViewStyle>> = {
   default: [
     $styles.row,
@@ -233,6 +252,7 @@ const $viewPresets: Record<Presets, ThemedStyleArray<ViewStyle>> = {
       borderWidth: 0,
     }),
   ],
+  cta: [$styles.row, $baseViewStyle, $ctaViewStyle],
 }
 
 const $textPresets: Record<Presets, ThemedStyleArray<TextStyle>> = {
@@ -240,6 +260,7 @@ const $textPresets: Record<Presets, ThemedStyleArray<TextStyle>> = {
   filled: [$baseTextStyle],
   reversed: [$baseTextStyle, ({ colors }) => ({ color: colors.palette.neutral100 })],
   text: [$baseTextStyle, ({ colors }) => ({ color: colors.palette.neutral800 })],
+  cta: [$baseTextStyle, $ctaTextStyle],
 }
 
 const $pressedViewPresets: Record<Presets, ThemedStyle<ViewStyle>> = {
@@ -247,6 +268,9 @@ const $pressedViewPresets: Record<Presets, ThemedStyle<ViewStyle>> = {
   filled: ({ colors }) => ({ backgroundColor: colors.palette.neutral400 }),
   reversed: ({ colors }) => ({ backgroundColor: colors.palette.neutral700 }),
   text: ({ colors }) => ({ backgroundColor: colors.palette.neutral200 }),
+  cta: ({ colors }) => ({
+    backgroundColor: colors.palette.neutral200,
+  }),
 }
 
 const $pressedTextPresets: Record<Presets, ThemedStyle<ViewStyle>> = {
@@ -254,4 +278,5 @@ const $pressedTextPresets: Record<Presets, ThemedStyle<ViewStyle>> = {
   filled: () => ({ opacity: 0.9 }),
   reversed: () => ({ opacity: 0.9 }),
   text: () => ({ opacity: 0.9 }),
+  cta: () => ({ opacity: 0.9 }),
 }

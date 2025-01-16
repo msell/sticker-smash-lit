@@ -11,6 +11,7 @@ import { type ImageSource } from "expo-image"
 import EmojiList from "@/components/EmojiList"
 import EmojiSticker from "@/components/EmojiSticker"
 import * as MediaLibrary from "expo-media-library"
+import FontAwesome from "@expo/vector-icons/FontAwesome"
 
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { ThemedStyle } from "@/theme"
@@ -92,7 +93,13 @@ export default function Index() {
         </View>
       ) : (
         <View style={themed($footerContainer)}>
-          <Button onPress={pickImageAsync}>Choose a photo</Button>
+          <Button
+            LeftAccessory={() => <FontAwesome name="picture-o" size={18} paddingRight={5} />}
+            preset="cta"
+            onPress={pickImageAsync}
+          >
+            Choose a photo
+          </Button>
           <Button preset="text" onPress={() => setShowAppOptions(true)}>
             Use this photo
           </Button>
