@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
-import { Slot, SplashScreen } from "expo-router"
-import { KeyboardProvider } from "react-native-keyboard-controller"
-
+import { Stack, SplashScreen } from "expo-router"
+import { StatusBar } from "expo-status-bar"
 import { useFonts } from "@expo-google-fonts/space-grotesk"
 import { customFontsToLoad } from "@/theme"
 import { initI18n } from "@/i18n"
@@ -22,7 +21,7 @@ export { ErrorBoundary } from "@/components/ErrorBoundary/ErrorBoundary"
 export default function Root() {
   const [fontsLoaded, fontError] = useFonts(customFontsToLoad)
   const [isI18nInitialized, setIsI18nInitialized] = useState(false)
-  const { themeScheme, setThemeContextOverride, ThemeProvider } = useThemeProvider()
+  const { setThemeContextOverride, ThemeProvider } = useThemeProvider()
 
   useEffect(() => {
     initI18n()
@@ -47,10 +46,12 @@ export default function Root() {
   }
 
   return (
-    <ThemeProvider value={{ themeScheme, setThemeContextOverride }}>
-      <KeyboardProvider>
-        <Slot />
-      </KeyboardProvider>
+    <ThemeProvider value={{ themeScheme: "dark", setThemeContextOverride }}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <StatusBar style="light" />
     </ThemeProvider>
   )
 }
